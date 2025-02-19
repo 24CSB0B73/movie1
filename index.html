@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html >
+<head>
+    
+<title>Movie List</title>
+   <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+    display: flex;
+    align-items:center;
+    background-image: url('movie.jpg');
+    background-color: #f1f1f1;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    background-color: #050404;
+    justify-content: left;
+    color: #f1f1f1;
+    padding: 20px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 500px;
+}
+.container1 {
+    text-align: center;
+    justify-content: right;
+    color: white;
+    font-size: 50px;
+    background-image: url('movie1.jpg','movie3.jpg');
+    font-size: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    width: 1000px;
+}
+
+input, button
+ {
+    padding: 10px;
+    margin: 10px 0;
+    width: 80%;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #f1f1f1;
+}
+
+input:focus, button:focus 
+{
+    outline: none;
+    border-color: #007BFF;
+}
+
+button 
+{
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover 
+{
+    background-color: #0056b3;
+}
+
+ul 
+{
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 8px 0;
+    background-color: #f1f1f1;
+    color: #000;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+li:hover {
+    background-color: #f1f1f1;
+}
+
+#total-movies
+{
+    margin-top: 10px;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Movie List</h1>
+        <input type="text" id="input" placeholder="Enter your fav" />
+        <button id="add-movie-btn">Add Movie</button>
+        <ul id="movie-list"></ul>
+        <button id="clear-list-btn">Clear List</button>
+        <p id="total-movies">Total Movies: 0</p>
+    </div>
+    <div class="container1">
+        save your favourite films you would want to watch or watch again!!
+    </div>
+    <script>
+    
+let movieList = [];
+
+const movieInput = document.getElementById('input');
+const addMovieBtn = document.getElementById('add-movie-btn');
+const movieListDisplay = document.getElementById('movie-list');
+const clearListBtn = document.getElementById('clear-list-btn');
+const totalMoviesDisplay = document.getElementById('total-movies');
+
+function updateMovieList()
+ {
+ 
+    movieListDisplay.innerHTML='';
+    movieList.forEach((movie, index) =>
+    {
+        const li = document.createElement('li');
+        li.textContent = movie;
+        li.addEventListener('click', () =>
+        {
+            removeMovie(index);
+        });
+
+        movieListDisplay.appendChild(li);
+    });
+
+  
+    totalMoviesDisplay.textContent = `Total Movies: ${movieList.length}`;
+}
+
+
+function addMovie() 
+{
+    const movieName = movieInput.value.trim();
+
+    if (movieName !== '') {
+        movieList.push(movieName);
+        movieInput.value = ''; 
+        updateMovieList();     
+    } else {
+        alert('Please enter a movie name.');
+    }
+}
+
+
+function removeMovie(index) {
+    movieList.splice(index, 1);  
+    updateMovieList();          
+}
+
+
+function clearMovieList() {
+    movieList = [];
+    updateMovieList();
+}
+
+
+addMovieBtn.addEventListener('click', addMovie);
+
+
+clearListBtn.addEventListener('click', clearMovieList);
+
+
+updateMovieList();
+
+    </script>
+</body>
+</html>
